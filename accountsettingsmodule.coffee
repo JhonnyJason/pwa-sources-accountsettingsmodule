@@ -91,7 +91,7 @@ syncIdFromState = ->
 
 ############################################################
 displayId = (idHex) ->
-    log "settingspagemodule.displayId"
+    log "displayId"
     idContent.textContent = utl.add0x(idHex)
     return
 
