@@ -1,17 +1,12 @@
-accountsettingsmodule = {name: "accountsettingsmodule"}
 ############################################################
-#region printLogFunctions
-log = (arg) ->
-    if allModules.debugmodule.modulesToDebug["accountsettingsmodule"]?  then console.log "[accountsettingsmodule]: " + arg
-    return
-ostr = (obj) -> JSON.stringify(obj, null, 4)
-olog = (obj) -> log "\n" + ostr(obj)
-print = (arg) -> console.log(arg)
+#region debug
+import { createLogFunctions } from "thingy-debug"
+{log, olog} = createLogFunctions("accountsettingsmodule")
 #endregion
 
 ############################################################
 #region modulesFromEnvironment
-secretManagerClientFactory = require("secret-manager-client")
+import * as secretManagerClientFactory from "secret-manager-client"
 
 ############################################################
 utl = null 
@@ -26,35 +21,35 @@ idContent = null
 currentClient = null
 
 ############################################################
-accountsettingsmodule.initialize = ->
+export initialize = ->
     log "accountsettingsmodule.initialize"
     utl = allModules.utilmodule
     state = allModules.statemodule
     qrDisplay = allModules.qrdisplaymodule
     qrReader = allModules.qrreadermodule
 
-    idContent = idDisplay.getElementsByClassName("display-frame-content")[0]
+    # idContent = idDisplay.getElementsByClassName("display-frame-content")[0]
 
-    idDisplay.addEventListener("click", idDisplayClicked)
-    idQrButton.addEventListener("click", idQrButtonClicked)
-    addKeyButton.addEventListener("click", addKeyButtonClicked)
-    deleteKeyButton.addEventListener("click", deleteKeyButtonClicked)
-    importKeyInput.addEventListener("change", importKeyInputChanged)
-    acceptKeyButton.addEventListener("click", acceptKeyButtonClicked)
-    qrScanImport.addEventListener("click", qrScanImportClicked)
-    floatingImport.addEventListener("click", floatingImportClicked)
-    signatureImport.addEventListener("click", signatureImportClicked)
-    copyExport.addEventListener("click", copyExportClicked)
-    qrExport.addEventListener("click", qrExportClicked)
-    floatingExport.addEventListener("click", floatingExportClicked)
-    signatureExport.addEventListener("click", signatureExportClicked)
+    # idDisplay.addEventListener("click", idDisplayClicked)
+    # idQrButton.addEventListener("click", idQrButtonClicked)
+    # addKeyButton.addEventListener("click", addKeyButtonClicked)
+    # deleteKeyButton.addEventListener("click", deleteKeyButtonClicked)
+    # importKeyInput.addEventListener("change", importKeyInputChanged)
+    # acceptKeyButton.addEventListener("click", acceptKeyButtonClicked)
+    # qrScanImport.addEventListener("click", qrScanImportClicked)
+    # floatingImport.addEventListener("click", floatingImportClicked)
+    # signatureImport.addEventListener("click", signatureImportClicked)
+    # copyExport.addEventListener("click", copyExportClicked)
+    # qrExport.addEventListener("click", qrExportClicked)
+    # floatingExport.addEventListener("click", floatingExportClicked)
+    # signatureExport.addEventListener("click", signatureExportClicked)
 
-    syncIdFromState()
+    # syncIdFromState()
 
-    state.addOnChangeListener("publicKeyHex", syncIdFromState)
-    state.addOnChangeListener("secretManagerURL", onServerURLChanged)
+    # state.addOnChangeListener("publicKeyHex", syncIdFromState)
+    # state.addOnChangeListener("secretManagerURL", onServerURLChanged)
 
-    await createCurrentClient()
+    # await createCurrentClient()
     return
 
 ############################################################
@@ -195,12 +190,9 @@ signatureExportClicked = ->
 
 #endregion
 
+
 ############################################################
-#region exposedFunctions
-accountsettingsmodule.getClient = -> currentClient
+export getClient = -> currentClient
 
-#endregion
-
-module.exports = accountsettingsmodule
 
 #92e102b2b2ef0d5b498fae3d7a9bbc94fc6ddc9544159b3803a6f4d239d76d62
